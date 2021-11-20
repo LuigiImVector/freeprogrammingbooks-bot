@@ -1,11 +1,16 @@
 import telebot
 from telebot import types
+from flask import Flask, request
 import requests
 import re
 import os
 import sqlite3
 
-bot = telebot.TeleBot('2112871440:AAG_klNRhGq6Ruhq_uPB45sw7QMQ_MdAJqk')
+
+TOKEN = "2112871440:AAG_klNRhGq6Ruhq_uPB45sw7QMQ_MdAJqk"
+bot = telebot.TeleBot(TOKEN)
+
+server = Flask(__name__)
 
 urlDb = "database.db"
 
@@ -272,6 +277,21 @@ def error_message(message):
 
     log(message, text)
 
+@server.route('/' + TOKEN, methods=['POST'])
+def getMessage():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return "!", 200
+
+
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://freeprogrammingbooks-bot.herokuapp.com/' + TOKEN)
+    return "!", 200
+
 
 if __name__ == '__main__':
-    bot.infinity_polling()  # keep running even if there are errors
+    bot.infinity_polling()  # keep running even if there are errors3
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000))
