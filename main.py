@@ -292,7 +292,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://freeprogrammingbooks-bot.herokuapp.com//' + TOKEN)
+    bot.set_webhook(url='https://freeprogrammingbooks-bot.herokuapp.com/' + TOKEN)
     return "!", 200
 
 
