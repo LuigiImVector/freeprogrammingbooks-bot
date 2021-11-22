@@ -18,13 +18,13 @@ username = "LuiginoPaneEVino"
 
 defaultCategory = "books/free-programming-books-langs.md"
 
-cursor.execute('SELECT * FROM fpb WHERE id=?;', (id,))
+cursor.execute('SELECT * FROM fpb WHERE id=%s;', (id,))
 
 print("Fetchone: " + cursor.fetchone())
    
 if cursor.fetchone() is not None:
     print("Username already saved")
 else:
-    cursor.execute('INSERT INTO fpb(id, username, choice) VALUES (?, ?, ?);', (id, username, defaultCategory,))
+    cursor.execute('INSERT INTO fpb(id, username, choice) VALUES (%s, %s, %s);', (id, username, defaultCategory,))
     conn.commit()
     print("Username saved")
