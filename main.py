@@ -72,7 +72,7 @@ def index(message):
     categoryName = cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
     categoryName = categoryName.fetchall()
     categoryName = ''.join(categoryName[0])
-    category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/" + categoryName
+    category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + categoryName
 
     r = requests.get(category)
     f = r.text
@@ -103,7 +103,7 @@ def index(message):
 
 @bot.message_handler(commands=['category'])
 def select_category(message):
-    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/README.md')
+    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
     categoryFile = categoryFile.text
     categoryFile = categoryFile.replace("####", "###")
     categoryFile = categoryFile.splitlines()
@@ -149,7 +149,7 @@ def select_category(message):
 def change_category(message):
     check = False
 
-    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/README.md')
+    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
     categoryFile = categoryFile.text
     categoryFile = categoryFile.splitlines()
 
@@ -195,7 +195,7 @@ def print_resource(message):
     category = cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
     category = category.fetchall()
     category = ''.join(category[0])
-    category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/" + category
+    category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + category
 
     r = requests.get(category)
     f = r.text

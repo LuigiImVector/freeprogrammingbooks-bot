@@ -10,12 +10,12 @@ cursor=conn.cursor()
 #cursor.execute('INSERT INTO fpb(id) VALUES (7437246);')
 #cursor.execute('DELETE FROM fpb;')
 
-id = "169859925"
+username = "LuigiImVector"
 
-categoryName = cursor.execute('SELECT choice FROM fpb WHERE id=%s', (id,))
+categoryName = cursor.execute('SELECT choice FROM fpb WHERE username=%s', (username,))
 categoryName = categoryName.fetchall()
 categoryName = ''.join(categoryName[0])
-category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/" + categoryName
+category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + categoryName
 
 print(category)
 
