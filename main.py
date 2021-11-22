@@ -69,7 +69,7 @@ def howto(message):
 
 @bot.message_handler(commands=['index'])
 def index(message):
-    categoryName = cursor.execute('SELECT choice FROM fpb WHERE id=%s', (message.chat.id,))
+    categoryName = cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
     categoryName = categoryName.fetchall()
     categoryName = ''.join(categoryName[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/" + categoryName
@@ -160,7 +160,7 @@ def change_category(message):
             tmp = re.findall(r'[^\(]+\.md(%s=\))', line)
             tmp = "" + str(tmp[0])
             if tmp == message.text:
-                cursor.execute('UPDATE fpb SET choice=%s WHERE id=%s', (message.text, message.chat.id,))
+                cursor.execute('UPDATE fpb SET choice=%s WHERE id=%s;', (message.text, message.chat.id,))
                 conn.commit()
                 check = True
                 text = "Updated"
@@ -192,7 +192,7 @@ def search_resource(message):
     log(message, text)
 
 def print_resource(message):
-    category = cursor.execute('SELECT choice FROM fpb WHERE id=%s', (message.chat.id,))
+    category = cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
     category = category.fetchall()
     category = ''.join(category[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/" + category
