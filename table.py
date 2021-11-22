@@ -12,8 +12,8 @@ cursor=conn.cursor()
 
 username = "LuigiImVector"
 
-test = cursor.execute('SELECT choice FROM fpb WHERE username=%s', (username,))
-categoryName = test.fetchone()
+cursor.execute('SELECT choice FROM fpb WHERE username=%s', (username,))
+categoryName = cursor.fetchall()
 categoryName = ''.join(categoryName[0])
 category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + categoryName
 

@@ -89,8 +89,8 @@ def index(message):
             check = False
             break
 
-        if check and re.findall(r'\((.*%s)\)', line):
-            tmp = re.findall(r'\[(.*%s)\]', line)
+        if check and re.findall(r'\((.*?)\)', line):
+            tmp = re.findall(r'\[(.*?)\]', line)
             text += tmp[0] + "\n"
 
     bot.reply_to(
@@ -122,8 +122,8 @@ def select_category(message):
             line = line.replace("### ", "")
             text += "\n*" + line + "*\n"
         
-        if check and re.findall(r'[^\(]+\.md(%s=\))', line):
-            tmp = re.findall(r'[^\(]+\.md(%s=\))', line)
+        if check and re.findall(r'[^\(]+\.md(?=\))', line):
+            tmp = re.findall(r'[^\(]+\.md(?=\))', line)
             text += "`" + tmp[0] + "`\n"
        
     global categoryMessage
@@ -156,8 +156,8 @@ def change_category(message):
     text = "Not correct"
 
     for line in categoryFile:
-        if re.findall(r'[^\(]+\.md(%s=\))', line):
-            tmp = re.findall(r'[^\(]+\.md(%s=\))', line)
+        if re.findall(r'[^\(]+\.md(?=\))', line):
+            tmp = re.findall(r'[^\(]+\.md(?=\))', line)
             tmp = "" + str(tmp[0])
             if tmp == message.text:
                 cursor.execute('UPDATE fpb SET choice=%s WHERE id=%s;', (message.text, message.chat.id,))
