@@ -42,7 +42,7 @@ def start_message(message):
 
     log(message, text)
 
-    cursor.execute('SELECT * FROM fpb WHERE id=?;', (message.chat.id,))
+    cursor.execute('SELECT * FROM fpb WHERE id=%s;', (message.chat.id,))
 
     defaultCategory = "books/free-programming-books-langs.md"
 
@@ -50,7 +50,7 @@ def start_message(message):
     if cursor.fetchone() is not None:
         print("Username already saved")
     else:
-        cursor.execute('INSERT INTO fpb(id, username, choice) VALUES (?, ?, ?);', (message.chat.id, message.chat.username, defaultCategory,))
+        cursor.execute('INSERT INTO fpb(id, username, choice) VALUES (%s, %s, %s);', (message.chat.id, message.chat.username, defaultCategory,))
         conn.commit()
         print("Username saved")
 
@@ -69,7 +69,7 @@ def howto(message):
 
 @bot.message_handler(commands=['index'])
 def index(message):
-    categoryName = cursor.execute('SELECT choice FROM fpb WHERE id=?', (message.chat.id,))
+    categoryName = cursor.execute('SELECT choice FROM fpb WHERE id=%s', (message.chat.id,))
     categoryName = categoryName.fetchall()
     categoryName = ''.join(categoryName[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/" + categoryName
@@ -89,8 +89,8 @@ def index(message):
             check = False
             break
 
-        if check and re.findall(r'\((.*?)\)', line):
-            tmp = re.findall(r'\[(.*?)\]', line)
+        if check and re.findall(r'\((.*%s)\)', line):
+            tmp = re.findall(r'\[(.*%s)\]', line)
             text += tmp[0] + "\n"
 
     bot.reply_to(
@@ -122,8 +122,8 @@ def select_category(message):
             line = line.replace("### ", "")
             text += "\n*" + line + "*\n"
         
-        if check and re.findall(r'[^\(]+\.md(?=\))', line):
-            tmp = re.findall(r'[^\(]+\.md(?=\))', line)
+        if check and re.findall(r'[^\(]+\.md(%s=\))', line):
+            tmp = re.findall(r'[^\(]+\.md(%s=\))', line)
             text += "`" + tmp[0] + "`\n"
        
     global categoryMessage
@@ -156,11 +156,11 @@ def change_category(message):
     text = "Not correct"
 
     for line in categoryFile:
-        if re.findall(r'[^\(]+\.md(?=\))', line):
-            tmp = re.findall(r'[^\(]+\.md(?=\))', line)
+        if re.findall(r'[^\(]+\.md(%s=\))', line):
+            tmp = re.findall(r'[^\(]+\.md(%s=\))', line)
             tmp = "" + str(tmp[0])
             if tmp == message.text:
-                cursor.execute('UPDATE fpb SET choice=? WHERE id=?', (message.text, message.chat.id,))
+                cursor.execute('UPDATE fpb SET choice=%s WHERE id=%s', (message.text, message.chat.id,))
                 conn.commit()
                 check = True
                 text = "Updated"
@@ -192,7 +192,7 @@ def search_resource(message):
     log(message, text)
 
 def print_resource(message):
-    category = cursor.execute('SELECT choice FROM fpb WHERE id=?', (message.chat.id,))
+    category = cursor.execute('SELECT choice FROM fpb WHERE id=%s', (message.chat.id,))
     category = category.fetchall()
     category = ''.join(category[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/master/" + category
