@@ -69,8 +69,8 @@ def howto(message):
 
 @bot.message_handler(commands=['index'])
 def index(message):
-    categoryName = cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
-    categoryName = categoryName.fetchall()
+    cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
+    categoryName = cursor.fetchall()
     categoryName = ''.join(categoryName[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + categoryName
 
@@ -192,8 +192,8 @@ def search_resource(message):
     log(message, text)
 
 def print_resource(message):
-    category = cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
-    category = category.fetchall()
+    cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
+    category = cursor.fetchall()
     category = ''.join(category[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + category
 
