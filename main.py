@@ -102,6 +102,22 @@ def index(message):
     log(message, text)
 
 @bot.message_handler(commands=['category'])
+def test(message):
+    bot.reply_to(
+        message,
+        "Ciaooooo"
+    )
+
+    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
+    categoryFile = categoryFile.text
+    categoryFile = categoryFile.replace("####", "###")
+
+    bot.reply_to(
+        message,
+        categoryFile
+    )
+
+@bot.message_handler(commands=['categoryy'])
 def select_category(message):
     categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
     categoryFile = categoryFile.text
