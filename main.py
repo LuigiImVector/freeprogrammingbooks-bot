@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 from flask import Flask, request
 import requests
+import psycopg2
 import re
 import os
 import sqlite3
@@ -12,14 +13,10 @@ bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
 
-urlDb = "database.db"
-
-if not os.path.isfile(urlDb):
-    print("Database not found!")
-else:
-    conn=sqlite3.connect(urlDb, check_same_thread=False)
-    cursor=conn.cursor()
-    print("Database connected!")
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+cursor=conn.cursor()
+print("Database connected!")
 
 # only for testing 
 #@bot.message_handler(commands=['del'])

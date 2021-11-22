@@ -7,6 +7,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 cursor=conn.cursor()
 
-cursor.execute('INSERT INTO fpb(id) VALUES (7437246);')
+#cursor.execute('INSERT INTO fpb(id) VALUES (7437246);')
+cursor.execute('DELETE FROM fpb')
 
 conn.commit()
