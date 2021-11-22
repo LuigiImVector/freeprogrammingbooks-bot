@@ -19,8 +19,6 @@ username = "LuiginoPaneEVino"
 defaultCategory = "books/free-programming-books-langs.md"
 
 cursor.execute('SELECT * FROM fpb WHERE id=%s;', (id,))
-
-print("Fetchone: " + cursor.fetchone())
    
 if cursor.fetchone() is not None:
     print("Username already saved")
