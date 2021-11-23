@@ -137,6 +137,8 @@ def select_category(message):
     categoryFile = categoryFile.replace("####", "###")
     categoryFile = categoryFile.splitlines()
 
+    print(categoryFile)
+
     check = False
     text = ""
 
@@ -155,6 +157,8 @@ def select_category(message):
             tmp = re.findall(r'[^\(]+\.md(?=\))', line)
             text += "`" + tmp[0] + "`\n"
 
+    print(text)
+
     keyboard=types.InlineKeyboardMarkup(row_width=1)
     cancelButton=types.InlineKeyboardButton(text="Cancel", callback_data="cancel")
     keyboard.add(cancelButton)
@@ -172,8 +176,8 @@ def select_category(message):
     log(message, text)
     
 def change_category(message):
-    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
-    categoryFile = categoryFile.text
+    r = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
+    categoryFile = r.text
     categoryFile = categoryFile.splitlines()
 
     text = "Not correct"
@@ -186,7 +190,9 @@ def change_category(message):
                 cursor.execute('UPDATE fpb SET choice=%s WHERE id=%s;', (message.text, message.chat.id,))
                 conn.commit()
                 text = "Updated"
+    print(text)
     
+
     bot.reply_to(
         message,
         text,
