@@ -74,8 +74,8 @@ def index(message):
     categoryName = ''.join(categoryName[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + categoryName
 
-    r = requests.get(category)
-    f = r.text
+    f = requests.get(category)
+    f = f.text
     f = f.splitlines()
 
     check = False
@@ -103,15 +103,15 @@ def index(message):
 
 @bot.message_handler(commands=['category'])
 def select_category(message):
-    r = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
-    categoryFile = r.text
-    categoryFile = categoryFile.replace("####", "###")
-    categoryFile = categoryFile.splitlines()
+    f = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
+    f = f.text
+    f = f.replace("####", "###")
+    f = f.splitlines()
 
     check = False
     text = ""
 
-    for line in categoryFile:
+    for line in f:
         if line == "### Books":
             check = True
         elif line == "### Translations":
@@ -125,8 +125,6 @@ def select_category(message):
         if check and re.findall(r'[^\(]+\.md(?=\))', line):
             tmp = re.findall(r'[^\(]+\.md(?=\))', line)
             text += "`" + tmp[0] + "`\n"
-
-    print(text)
 
     keyboard=types.InlineKeyboardMarkup(row_width=1)
     cancelButton=types.InlineKeyboardButton(text="Cancel", callback_data="cancel")
@@ -145,13 +143,13 @@ def select_category(message):
     log(message, text)
     
 def change_category(message):
-    r = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
-    categoryFile = r.text
-    categoryFile = categoryFile.splitlines()
+    f = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
+    f = f.text
+    f = f.splitlines()
 
     text = "Not correct"
 
-    for line in categoryFile:
+    for line in f:
         if re.findall(r'[^\(]+\.md(?=\))', line):
             tmp = re.findall(r'[^\(]+\.md(?=\))', line)
             tmp = "" + str(tmp[0])
@@ -159,8 +157,6 @@ def change_category(message):
                 cursor.execute('UPDATE fpb SET choice=%s WHERE id=%s;', (message.text, message.chat.id,))
                 conn.commit()
                 text = "Updated"
-    print(text)
-    
 
     bot.reply_to(
         message,
@@ -194,8 +190,8 @@ def print_resource(message):
     category = ''.join(category[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + category
 
-    r = requests.get(category)
-    f = r.text
+    f = requests.get(category)
+    f = f.text
     f = f.replace("####", "###")
     f = f.splitlines()
     t = message.json
