@@ -84,7 +84,14 @@ def index(message):
     # non ovunque si inizia con ### index
 
     for line in f:
-        if line[:1] == "#":
+        if line == "### Index":
+            check = True
+            text += "*Index* of `" + categoryName + "`\n\n"
+        elif line[:1] == "#" and check:
+            check = False
+            break
+
+        if line[:1] == "#" or line[:1] == "<":
             if not check:
                 check = True
                 text += "*Index* of `" + categoryName + "`\n\n"
