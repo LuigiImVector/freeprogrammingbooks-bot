@@ -108,8 +108,11 @@ def test(message):
         "Ciaooooo"
     )
 
-    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
-    categoryFile = categoryFile.text
+    # problema:
+
+    # cambiato nome della prima variabile - verificare funzionamento - 
+    r = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
+    categoryFile = r.text
     categoryFile = categoryFile.replace("####", "###")
 
     bot.reply_to(
@@ -119,7 +122,7 @@ def test(message):
 
 @bot.message_handler(commands=['categoryy'])
 def select_category(message):
-    categoryFile = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
+    categoryFile = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
     categoryFile = categoryFile.text
     categoryFile = categoryFile.replace("####", "###")
     categoryFile = categoryFile.splitlines()
