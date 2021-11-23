@@ -137,15 +137,13 @@ def select_category(message):
     categoryFile = categoryFile.replace("####", "###")
     categoryFile = categoryFile.splitlines()
 
-    print(categoryFile)
-
     check = False
     text = ""
 
     for line in categoryFile:
         if line == "### Books":
             check = True
-        elif line == "## License":
+        elif line == "### Translations":
             check = False
             break
 
@@ -163,15 +161,15 @@ def select_category(message):
     cancelButton=types.InlineKeyboardButton(text="Cancel", callback_data="cancel")
     keyboard.add(cancelButton)
 
-    bot.register_next_step_handler(
-        bot.send_message(
-            message.chat.id,
-            text,
-            reply_markup=keyboard,
-            parse_mode="markdown"
-        ),
-        change_category
+    #bot.register_next_step_handler(
+    bot.send_message(
+        message.chat.id,
+        text,
+        reply_markup=keyboard,
+        parse_mode="markdown"
     )
+    #    change_category
+    #)
 
     log(message, text)
     
