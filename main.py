@@ -108,16 +108,24 @@ def test(message):
         "Ciaooooo"
     )
 
+    bot.reply_to(
+        message,
+        "Ciaooooo 2"
+    )
+
     # problema:
 
     # cambiato nome della prima variabile - verificare funzionamento - 
-    r = requests.get('https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md')
-    categoryFile = r.text
-    categoryFile = categoryFile.replace("####", "###")
+
+    category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md"
+
+    r = requests.get(category)
+    f = r.text
+    
 
     bot.reply_to(
         message,
-        categoryFile
+        f
     )
 
 @bot.message_handler(commands=['categoryy'])
