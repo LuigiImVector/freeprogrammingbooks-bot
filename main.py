@@ -102,35 +102,6 @@ def index(message):
     log(message, text)
 
 @bot.message_handler(commands=['category'])
-def test(message):
-    bot.reply_to(
-        message,
-        "Ciaooooo"
-    )
-
-    bot.reply_to(
-        message,
-        "Ciaooooo 2"
-    )
-
-    # problema:
-
-    # cambiato nome della prima variabile - verificare funzionamento - 
-
-    category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md"
-
-    r = requests.get(category)
-    f = r.text
-
-    print(f)
-    
-
-    bot.reply_to(
-        message,
-        f
-    )
-
-@bot.message_handler(commands=['categoryy'])
 def select_category(message):
     r = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
     categoryFile = r.text
@@ -161,15 +132,15 @@ def select_category(message):
     cancelButton=types.InlineKeyboardButton(text="Cancel", callback_data="cancel")
     keyboard.add(cancelButton)
 
-    #bot.register_next_step_handler(
-    bot.send_message(
-        message.chat.id,
-        text,
-        reply_markup=keyboard,
-        parse_mode="markdown"
+    bot.register_next_step_handler(
+        bot.send_message(
+            message.chat.id,
+            text,
+            reply_markup=keyboard,
+            parse_mode="markdown"
+        ),
+        change_category
     )
-    #    change_category
-    #)
 
     log(message, text)
     
