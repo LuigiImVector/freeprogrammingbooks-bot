@@ -121,6 +121,8 @@ def test(message):
 
     r = requests.get(category)
     f = r.text
+
+    print(f)
     
 
     bot.reply_to(
@@ -130,8 +132,8 @@ def test(message):
 
 @bot.message_handler(commands=['categoryy'])
 def select_category(message):
-    categoryFile = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
-    categoryFile = categoryFile.text
+    r = requests.get("https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/README.md")
+    categoryFile = r.text
     categoryFile = categoryFile.replace("####", "###")
     categoryFile = categoryFile.splitlines()
 
