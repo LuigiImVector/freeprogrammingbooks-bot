@@ -56,7 +56,7 @@ def start_message(message):
 
 @bot.message_handler(commands=['howto'])
 def howto(message):
-    text = "*INSTRUCTIONS* ⚙️\n\n*Index*:\nType /index to see the index of the current file.\n\n*Change category*:\nType /category and write in the chat the exactly name of the category (default is `books/free-programming-books-langs.md`).\n\n*Search resources*:\nType /search and then write the name of the sub-category (Android, Java, PHP...).\n\n*Contact the support*:\nType /support to know how to contact support.\n\nIf you want to contribute to this repository check [this](https://github.com/EbookFoundation/free-programming-books/blob/main/CONTRIBUTING.md)."
+    text = "*INSTRUCTIONS* ⚙️\n\n*Index*:\nType /index to see the index of the current file.\n\n*Change category*:\nType /category and write in the chat the exactly name of the category (default is `books/free-programming-books-langs.md`).\n\n*Search resources*:\nType /search and then write the name of the sub-category (Android, Java, PHP...).\n\n*Contact the support*:\nType /support to know how to contact support.\n\nIf you want to contribute to this repository check [this](https://github.com/EbookFoundation/free-programming-books/blob/main/docs/CONTRIBUTING.md)."
 
     bot.send_message(
         message.chat.id,
