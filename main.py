@@ -5,7 +5,6 @@ import requests
 import psycopg2
 import re
 import os
-import sqlite3
 
 
 TOKEN = os.environ['TOKEN']
