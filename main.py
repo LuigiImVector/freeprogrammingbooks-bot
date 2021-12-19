@@ -8,7 +8,7 @@ import os
 import sqlite3
 
 
-TOKEN = "2112871440:AAG_klNRhGq6Ruhq_uPB45sw7QMQ_MdAJqk"
+TOKEN = os.environ['TOKEN']
 bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
@@ -56,7 +56,7 @@ def start_message(message):
 
 @bot.message_handler(commands=['howto'])
 def howto(message):
-    text = "*INSTRUCTIONS* ⚙️\n\n*Index*:\nType /index to see the index of the current file.\n\n*Change category*:\nType /category and write in the chat the exactly name of the category (default is `books/free-programming-books-langs.md`).\n\n*Search resources*:\nType /search and then write the name of the sub-category (Android, Java, PHP...).\n\n*Contact the support*:\nType /support to know how to contact support.\n\nIf you want to contribute to this repository check [this](https://github.com/EbookFoundation/free-programming-books/blob/main/docs/CONTRIBUTING.md)."
+    text = "*INSTRUCTIONS* ⚙️\n\n*Index*:\nType /index to see the index of the current file.\n\n*Change category*:\nType /category and write in the chat the exactly name of the category (default is `books/free-programming-books-langs.md`).\n\n*Search resources*:\nType /search and in a new message write the name of the sub-category (Android, Java, PHP...).\n\n*Contact the support*:\nType /support to know how to contact support.\n\nIf you want to contribute to this repository check [this](https://github.com/EbookFoundation/free-programming-books/blob/main/docs/CONTRIBUTING.md)."
 
     bot.send_message(
         message.chat.id,
@@ -80,8 +80,6 @@ def index(message):
 
     check = False
     text = ""
-
-    # non ovunque si inizia con ### index
 
     for line in f:
         if line[:1] == "#" or line[:1] == "<":
@@ -171,7 +169,7 @@ def change_category(message):
 
 @bot.message_handler(commands=['search'])
 def search_resource(message):
-    text = "Searching..."
+    text = "Type what to search for"
     keyboard=types.InlineKeyboardMarkup(row_width=1)
     cancelButton=types.InlineKeyboardButton(text="Cancel", callback_data="cancel")
     keyboard.add(cancelButton)
