@@ -7,7 +7,7 @@ import re
 import os
 
 
-TOKEN = os.environ['TOKEN_BOT']
+TOKEN = os.environ['TOKEN']
 bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
