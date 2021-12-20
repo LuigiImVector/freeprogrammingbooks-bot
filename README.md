@@ -31,7 +31,7 @@ Un-official Telegram bot of [free-programming-books](https://github.com/EbookFou
     $ pip install -r requirements.txt
     ```
 
-5. [Setup autodeploy](https://dashboard.heroku.com/apps/freeprogrammingbooks-bot/deploy/github) from github using `newLocalBranchName`
+5. Setup autodeploy from github using `newLocalBranchName`
 
 6. ```sh
     # After some changes
