@@ -7,6 +7,8 @@ import re
 import os
 
 
+URL_BOT = os.environ['URL_BOT']
+
 TOKEN = os.environ['TOKEN']
 bot = telebot.TeleBot(TOKEN)
 
@@ -278,7 +280,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://freeprogrammingbooks-bot.herokuapp.com/' + TOKEN)
+    bot.set_webhook(url=URL_BOT + TOKEN)
     return "!", 200
 
 

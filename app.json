@@ -1,0 +1,34 @@
+{
+    "name": "freeprogrammingbooks-bot",
+    "description": "Un-official bot of EbookFoundation/free-programming-books.",
+    "keywords": [
+      "python",
+      "opensource",
+      "learn"
+    ],
+    "repository": "https://github.com/LuigiImVector/freeprogrammingbooks-bot",
+    "env": {
+      "TOKEN": {
+        "description": "A secret key for verifying the integrity of signed cookies.",
+        "required": true
+      },
+      "URL_BOT": {
+        "description": "The url of the bot with trailing slash: https://app-name.herokuapp.com/",
+        "required": true
+      }
+    },
+    "addons": [
+        {
+          "plan": "heroku-postgresql:hobby-dev",
+          "options": {
+            "version": "13.5"
+          }
+        }
+    ],
+    "buildpacks": [
+        {
+          "url": "heroku/python"
+        }
+    ]
+}
+  
