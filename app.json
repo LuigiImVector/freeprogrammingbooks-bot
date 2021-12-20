@@ -4,16 +4,16 @@
     "keywords": [
       "python",
       "opensource",
-      "learn"
+      "telegram"
     ],
     "repository": "https://github.com/LuigiImVector/freeprogrammingbooks-bot",
     "env": {
       "TOKEN": {
-        "description": "A secret key for verifying the integrity of signed cookies.",
+        "description": "Telegram bot TOKEN (see @BotFather).",
         "required": true
       },
       "URL_BOT": {
-        "description": "The url of the bot with trailing slash: https://app-name.herokuapp.com/",
+        "description": "The url of the app with trailing slash: https://app-name.herokuapp.com/",
         "required": true
       }
     },
