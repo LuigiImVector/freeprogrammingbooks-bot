@@ -40,9 +40,9 @@ Un-official Telegram bot of [free-programming-books](https://github.com/EbookFou
 
 7. Open `https://app-name.herokuapp.com/` if the bot doesn't start (mainly the first time)
 
-If you want to test the app locally before committing, read [Heroku documentation](https://devcenter.heroku.com/articles/heroku-local).
+If you want to test the app     locally before committing, read [Heroku documentation](https://devcenter.heroku.com/articles/heroku-local).
 
 
 #### Improve code
 
-Create a Pull Request detailing the changes made. 
+Create a Pull Request detailing the changes made.

@@ -234,7 +234,7 @@ def print_resource(message):
 
 @bot.message_handler(commands=['support'])
 def support(message):
-    text = "For any issues you can contact the bot and github repository support at: github.com/EbookFoundation/free-programming-books/issues"
+    text = "For any issues you can contact the staff support at: github.com/LuigiImVector/freeprogrammingbooks-bot/issues/new"
 
     bot.send_message(
         message.chat.id,
