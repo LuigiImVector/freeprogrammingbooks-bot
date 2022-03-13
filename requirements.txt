@@ -33,7 +33,7 @@ MarkupSafe==2.0.1
 mccabe==0.6.1
 multidict==5.1.0
 mutagen==1.45.1
-Pillow==8.3.2
+Pillow==9.0.1
 psutil==5.8.0
 psycopg2-binary==2.9.2
 pyaes==1.6.1
