@@ -1,6 +1,8 @@
 import telebot
 from telebot import types
 from flask import Flask, request
+import urllib.request
+import json
 import requests
 import psycopg2
 import re
@@ -65,41 +67,6 @@ def howto(message):
         parse_mode="markdown",
         disable_web_page_preview=True
     )
-
-    log(message, text)
-
-@bot.message_handler(commands=['index'])
-def index(message):
-    cursor.execute('SELECT choice FROM fpb WHERE id=%s;', (message.chat.id,))
-    categoryName = cursor.fetchall()
-    categoryName = ''.join(categoryName[0])
-    category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + categoryName
-
-    f = requests.get(category)
-    f = f.text
-    f = f.splitlines()
-
-    check = False
-    text = ""
-
-    for line in f:
-        if line[:1] == "#" or line[:1] == "<":
-            if not check:
-                check = True
-                text += "*Index* of `" + categoryName + "`\n\n"
-            else:
-                check = False
-                break
-
-        if check and re.findall(r'\((.*?)\)', line):
-            tmp = re.findall(r'\[(.*?)\]', line)
-            text += tmp[0] + "\n"
-
-    bot.reply_to(
-            message,
-            text,
-            parse_mode="markdown"
-        )
 
     log(message, text)
 
@@ -192,32 +159,25 @@ def print_resource(message):
     category = ''.join(category[0])
     category = "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/" + category
 
-    f = requests.get(category)
-    f = f.text
-    f = f.replace("####", "###")
-    f = f.splitlines()
-    t = message.json
+    with urllib.request.urlopen("https://raw.githubusercontent.com/EbookFoundation/free-programming-books-search/main/fpb.json") as url:
+        data = json.loads(url.read().decode())
 
-    search = "### " + str(t['text']) # improve name
-    
-    check = False
     text = ""
 
-    for line in f:
-        if line.lower() == search.lower():
-            line = line.replace("### ", "")
-            text += "*" + line + "*\n"
-            check = True
-    
-        if check:
-            if line[:1] == "*":
-                line = line[:0] + "- " + line[2:]
-                text += line + "\n"
-            elif line == "":
-                text += line + "\n"
-            elif line[:1] == "#":
-                check = False
-                break
+    for type in data['children']:
+        for lang in type['children']:
+            if lang['language']:
+                if lang['language']['code'] == "it":
+                    for x in lang['sections']:
+                        if (x['subsections']):
+                            for y in x['subsections']:
+                                for z in y['entries']:
+                                    if "info" in z['title']:
+                                        text += z['title']
+                        else:
+                            for k in x['entries']:
+                                if "info" in k['title']:
+                                    text += k['title']
     
     
     
